@@ -1,4 +1,4 @@
-package com.example.android.politicalpreparedness.base
+package com.example.android.politicalpreparedness.common.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

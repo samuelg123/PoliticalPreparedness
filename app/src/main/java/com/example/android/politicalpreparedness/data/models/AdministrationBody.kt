@@ -2,6 +2,7 @@ package com.example.android.politicalpreparedness.data.models
 
 import com.squareup.moshi.JsonClass
 
+//TODO: Election Information Page entity
 @JsonClass(generateAdapter = true)
 data class AdministrationBody (
         val name: String? = null,

@@ -1,34 +1,75 @@
 package com.example.android.politicalpreparedness.ui.election.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.android.politicalpreparedness.data.models.Election
+import android.content.Context
+import android.util.Log
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.common.base.BaseViewModel
+import com.example.android.politicalpreparedness.common.base.entity.ResultWrapper
+import com.example.android.politicalpreparedness.data.datasource.local.database.dao.ElectionDao
+import com.example.android.politicalpreparedness.domain.entity.ElectionEntity
+import com.example.android.politicalpreparedness.domain.interactor.GetElectionsUseCase
+import com.example.android.politicalpreparedness.domain.interactor.GetListSavedElectionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-//TODO: Construct ViewModel and provide election datasource
+sealed class SavedElectionState {
+    object Loading : SavedElectionState()
+    data class Success(val value: List<ElectionEntity>) : SavedElectionState()
+    data class Error(
+        val message: String? = null,
+        val error: Throwable? = null
+    ) : SavedElectionState()
+}
+
+sealed class UpcomingElectionState {
+    object Loading : UpcomingElectionState()
+    data class Success(val value: List<ElectionEntity>) : UpcomingElectionState()
+    data class Error(
+        val message: String? = null,
+        val error: Throwable? = null
+    ) : UpcomingElectionState()
+}
+
+//TODO: Construct ViewModel and provide election datasource - OK
 @HiltViewModel
-class ElectionsViewModel(
+class ElectionsViewModel @Inject constructor(
+    @ApplicationContext context: Context,
+    val getListSavedElectionsUseCase: GetListSavedElectionsUseCase,
+    val getElectionsUseCase: GetElectionsUseCase,
+) : BaseViewModel(context) {
+    lateinit var savedElectionState: StateFlow<SavedElectionState>
 
-) : ViewModel() {
+    private val _upcomingElectionState =
+        MutableStateFlow<UpcomingElectionState>(UpcomingElectionState.Loading)
+    val upcomingElectionState: StateFlow<UpcomingElectionState> = _upcomingElectionState
 
-    //TODO: Create live data val for upcoming elections
-    private val upcomingElectionsLive = MutableLiveData<List<Election>>()
-
-    //TODO: Create live data val for saved elections
-    private val savedElectionsLive = MutableLiveData<List<Election>>()
+    init {
+        loadSavedElections()
+        launch {
+            loadUpcomingElections()
+        }
+    }
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-    fun showUpcomingElections() {
-        //TODO: API implementation
-        private val upcomingElections = mutableListOf<Election>()
+    private suspend fun loadUpcomingElections() {
+        _upcomingElectionState.value = UpcomingElectionState.Loading
+        val newState = when (val result = getElectionsUseCase.invoke()) {
+            is ResultWrapper.Success -> UpcomingElectionState.Success(result.data)
+            is ResultWrapper.Error -> UpcomingElectionState.Error(result.message, result.error)
+        }
+        _upcomingElectionState.compareAndSet(UpcomingElectionState.Loading, newState)
     }
 
-    fun showSavedElections() {
-        //TODO: TAKE FROM LOCAL DB
-        val savedElections = mutableListOf<Election>()
-        savedElectionsLive.value = saved
+    private fun loadSavedElections() {
+        savedElectionState = getListSavedElectionsUseCase.invoke().map {
+            when (it) {
+                is ResultWrapper.Success -> SavedElectionState.Success(it.data)
+                is ResultWrapper.Error -> SavedElectionState.Error(it.message, it.error)
+            }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, SavedElectionState.Loading)
     }
-
-    //TODO: Create functions to navigate to saved or upcoming election voter info
 
 }

@@ -1,10 +1,10 @@
 package com.example.android.politicalpreparedness.data.models
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import com.example.android.politicalpreparedness.domain.entity.ChannelEntity
 
-@Parcelize
-data class Channel (
+data class Channel(
     val type: String,
     val id: String
-): Parcelable
+)
+
+fun Channel.toEntity() = ChannelEntity(type, id)
