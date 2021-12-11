@@ -16,7 +16,6 @@ import java.util.*
 
 private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
-// TODO: Add adapters for Java Date and custom adapter ElectionAdapter (included in project) - OK
 private val moshi = Moshi.Builder()
     .addLast(KotlinJsonAdapterFactory())
     .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
@@ -29,13 +28,9 @@ private val moshi = Moshi.Builder()
  */
 
 interface CivicsApiService {
-    //TODO: Add elections API Call - OK
-    // USING THIS TO GET LIST OF UPCOMING ELECTIONS PAGE
     @GET("elections")
     suspend fun getElections(): ElectionResponse
 
-    //TODO: Add voterinfo API Call - OK
-    // USING THIS TO GET ELECTION INFORMATION (DETAIL PAGE)
     @GET("voterinfo")
     suspend fun getVoterInfo(
         @Query("address") address: String,// From ElectionResponse -> ElectionDTO -> Division ->  state + country
@@ -43,8 +38,6 @@ interface CivicsApiService {
         @Query("officialOnly") officialOnly: Boolean? = null
     ): VoterInfoResponse
 
-    //TODO: Add representatives API Call - OK
-    // USING THIS FOR REPRESENTATIVE SEARCH PAGE
     @GET("representatives")
     suspend fun getRepresentativesByAddress(
         @Query("address") address: String? = null,
@@ -63,7 +56,6 @@ interface CivicsApiService {
 }
 
 object CivicsApi {
-
     fun create(chuckerInterceptor: ChuckerInterceptor): CivicsApiService {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))

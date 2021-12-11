@@ -25,7 +25,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ElectionsFragment : BaseFragment() {
 
-    //TODO: Declare ViewModel - OK
     private val viewModel: ElectionsViewModel by viewModels()
 
     private var _binding: FragmentElectionBinding? = null
@@ -40,16 +39,11 @@ class ElectionsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        //TODO: Add ViewModel values and create ViewModel - OK
-
-        //TODO: Add binding values - OK
         _binding = FragmentElectionBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //TODO: Link elections to voter info - OK
         binding.viewModel = viewModel
 
-        //TODO: Initiate recycler adapters - OK
         upcomingAdapter = ElectionListAdapter {
             navToVoterInfo(it)
         }
@@ -67,7 +61,6 @@ class ElectionsFragment : BaseFragment() {
             setHasFixedSize(false)
         }
 
-        //TODO: Populate recycler adapters - OK
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
@@ -100,8 +93,6 @@ class ElectionsFragment : BaseFragment() {
         }
         return binding.root
     }
-
-    //TODO: Refresh adapters when fragment loads - OK
 
     private fun navToVoterInfo(election: ElectionEntity) {
         this.findNavController().navigate(

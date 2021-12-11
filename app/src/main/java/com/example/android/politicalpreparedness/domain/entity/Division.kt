@@ -10,7 +10,10 @@ data class DivisionEntity(
     val country: String,
     val state: String
 ) : Parcelable {
-    fun toFormattedStringAddress(): String = "$state, $country"
+    fun toFormattedStringAddress(): String {
+        if (state.isBlank()) return country
+        return "$state, $country"
+    }
 }
 
 fun DivisionEntity.toDTO() = Division(id, country, state)

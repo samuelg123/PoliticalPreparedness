@@ -4,7 +4,7 @@ import com.example.android.politicalpreparedness.domain.entity.RepresentativeEnt
 
 data class RepresentativeResponse(
     val offices: List<Office>,
-    val officials: List<Official> //TODO: WILL BE SHOWN ON PAGE REPRESENTATIVES
+    val officials: List<Official>
 )
 
 fun RepresentativeResponse.toEntity(): List<RepresentativeEntity> {

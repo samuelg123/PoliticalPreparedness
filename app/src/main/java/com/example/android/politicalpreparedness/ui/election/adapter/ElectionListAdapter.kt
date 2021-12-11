@@ -19,7 +19,6 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
         holder.bind(getItem(position))
     }
 
-    //TODO: Create ElectionViewHolder - OK
     class ElectionViewHolder private constructor(
         private val binding: ItemElectionBinding,
         private val clickListener: ElectionListener
@@ -36,7 +35,6 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
             binding.executePendingBindings()
         }
 
-        //TODO: Add companion object to inflate ViewHolder (from) - OK
         companion object {
             internal fun from(
                 parent: ViewGroup,
@@ -50,7 +48,6 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
     }
 }
 
-//TODO: Create ElectionDiffCallback - OK
 object ElectionDiffCallback : ItemCallback<ElectionEntity>() {
     override fun areItemsTheSame(oldItem: ElectionEntity, newItem: ElectionEntity): Boolean {
         return oldItem.id == newItem.id
@@ -61,5 +58,4 @@ object ElectionDiffCallback : ItemCallback<ElectionEntity>() {
     }
 }
 
-//TODO: Create ElectionListener - OK
 typealias ElectionListener = (election: ElectionEntity) -> Unit

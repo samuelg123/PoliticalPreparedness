@@ -33,7 +33,6 @@ sealed class UpcomingElectionState {
     ) : UpcomingElectionState()
 }
 
-//TODO: Construct ViewModel and provide election datasource - OK
 @HiltViewModel
 class ElectionsViewModel @Inject constructor(
     @ApplicationContext context: Context,
@@ -53,7 +52,6 @@ class ElectionsViewModel @Inject constructor(
         }
     }
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
     private suspend fun loadUpcomingElections() {
         _upcomingElectionState.value = UpcomingElectionState.Loading
         val newState = when (val result = getElectionsUseCase.invoke()) {

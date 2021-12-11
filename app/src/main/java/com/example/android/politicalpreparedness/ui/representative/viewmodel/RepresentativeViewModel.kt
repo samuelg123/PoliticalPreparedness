@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class RepresentativesState {
+    object Initial : RepresentativesState()
     object Loading : RepresentativesState()
     data class Success(val value: List<RepresentativeEntity>) : RepresentativesState()
     data class Error(
@@ -29,14 +30,12 @@ class RepresentativeViewModel @Inject constructor(
     private val getListRepresentativesByAddressUseCase: GetListRepresentativesByAddressUseCase
 ) : BaseViewModel(context) {
 
-    //TODO: Establish live data for representatives and address
     private val _representativesState =
-        MutableStateFlow<RepresentativesState>(RepresentativesState.Loading)
+        MutableStateFlow<RepresentativesState>(RepresentativesState.Initial)
     val representativesState: StateFlow<RepresentativesState> = _representativesState
 
     val addressFilter = ObservableField<AddressEntity>()
 
-    //TODO: Create function to fetch representatives from API from a provided address
     fun fetchRepresentatives() = launch {
         val address = getAddressFromFields() ?: return@launch
         _representativesState.value = RepresentativesState.Loading
@@ -59,10 +58,8 @@ class RepresentativeViewModel @Inject constructor(
 
      */
 
-    //TODO: Create function get address from geo location
     fun setAddressFromGeoLocation(address: AddressEntity) = addressFilter.set(address)
 
-    //TODO: Create function to get address from individual fields
     private fun getAddressFromFields() = addressFilter.get()
 
 }

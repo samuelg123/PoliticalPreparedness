@@ -1,22 +1,20 @@
 package com.example.android.politicalpreparedness.common.extensions
 
-import android.R
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.collect
 import com.example.android.politicalpreparedness.common.base.entity.ResultWrapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -24,11 +22,6 @@ import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
 import java.time.temporal.TemporalAccessor
 import java.util.*
-import android.widget.RelativeLayout
-
-import android.widget.ProgressBar
-
-
 
 
 fun Fragment.setTitle(title: String) {

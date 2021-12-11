@@ -42,11 +42,6 @@ import java.util.*
 @AndroidEntryPoint
 class RepresentativeFragment : BaseFragment() {
 
-    companion object {
-        //TODO: Add Constant for Location request - ?
-
-    }
-
     private val resolutionForResult =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
             if (activityResult.resultCode == AppCompatActivity.RESULT_OK) {
@@ -59,7 +54,6 @@ class RepresentativeFragment : BaseFragment() {
     private val permissionResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
             permissionRequestCompletable.complete(result)
-            //TODO: Handle location permission result to get location on permission granted - ok
         }
 
     private lateinit var permissionRequestCompletable: CompletableDeferred<MutableMap<String, Boolean>>
@@ -72,7 +66,6 @@ class RepresentativeFragment : BaseFragment() {
     }
     private var cancellationTokenSource = CancellationTokenSource()
 
-    //TODO: Declare ViewModel
     private val viewModel: RepresentativeViewModel by viewModels()
     private var _binding: FragmentRepresentativeBinding? = null
     private val binding get() = _binding!!
@@ -82,10 +75,8 @@ class RepresentativeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //TODO: Establish bindings - OK
         _binding = FragmentRepresentativeBinding.inflate(inflater, container, false)
 
-        //TODO: Define and assign Representative adapter - OK
         binding.viewModel = viewModel
         val adapter = RepresentativeListAdapter {
             /* no-op */
@@ -96,7 +87,6 @@ class RepresentativeFragment : BaseFragment() {
         }
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //TODO: Populate Representative adapter - OK
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.representativesState.collect { uiState ->
@@ -107,12 +97,14 @@ class RepresentativeFragment : BaseFragment() {
                             showToast(it)
                         }
                         is RepresentativesState.Success -> adapter.submitList(uiState.value)
+                        else -> {
+                            /* no-op */
+                        }
                     }
                 }
             }
         }
 
-        //TODO: Establish button listeners for field and location search - OK
         binding.buttonSearch.setOnClickListener {
             hideKeyboard()
             viewModel.fetchRepresentatives()
@@ -132,7 +124,6 @@ class RepresentativeFragment : BaseFragment() {
         return if (isPermissionGranted()) {
             true
         } else {
-            //TODO: Request Location permissions - OK
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val permissions = arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -155,7 +146,6 @@ class RepresentativeFragment : BaseFragment() {
         }
 
     private fun isPermissionGranted(): Boolean {
-        //TODO: Check if permission is already granted and return (true = granted, false = denied/other) - OK
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
                 ActivityCompat.checkSelfPermission(
                     requireContext(),
@@ -170,10 +160,8 @@ class RepresentativeFragment : BaseFragment() {
 
     private suspend fun getLocation(): AddressEntity? {
         if (!checkLocationPermissions()) return null
-        //TODO: Get location from LocationServices - OK
         val isEnabled = enableLocationServiceSettings()
         val location = (if (isEnabled) getLastLocation() else return null) ?: return null
-        //TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address - OK
         return geoCodeLocation(location)
     }
 
@@ -184,7 +172,7 @@ class RepresentativeFragment : BaseFragment() {
             cancellationTokenSource.token
         ).asDeferred().await()
 
-    suspend fun enableLocationServiceSettings(priority: Int = LocationRequest.PRIORITY_LOW_POWER): Boolean {
+    private suspend fun enableLocationServiceSettings(priority: Int = LocationRequest.PRIORITY_LOW_POWER): Boolean {
         val locationRequest = LocationRequest.create()
             .setPriority(priority)
             .setInterval((10 * 1000).toLong())

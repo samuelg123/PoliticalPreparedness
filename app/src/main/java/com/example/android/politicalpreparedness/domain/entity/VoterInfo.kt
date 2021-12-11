@@ -1,13 +1,25 @@
 package com.example.android.politicalpreparedness.domain.entity
 
-import com.example.android.politicalpreparedness.data.models.ElectionOfficial
-import com.example.android.politicalpreparedness.data.models.State
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-
-class VoterInfoEntity (
+@Parcelize
+class VoterInfoEntity(
     val election: ElectionEntity,
-    val pollingLocations: String? = null, //TODO: Future Use - ? OK
-    val contests: String? = null, //TODO: Future Use - ? OK
-    val state: List<State>? = null,
-    val electionElectionOfficials: List<ElectionOfficial>? = null
-)
+    val state: StateEntity? = null,
+) : Parcelable
+
+@Parcelize
+class StateEntity(
+    val name: String,
+    val electionAdministrationBody: AdministrationBodyEntity
+) : Parcelable
+
+@Parcelize
+data class AdministrationBodyEntity(
+    val name: String? = null,
+    val electionInfoUrl: String? = null,
+    val votingLocationFinderUrl: String? = null,
+    val ballotInfoUrl: String? = null,
+    val correspondenceAddress: AddressEntity? = null
+) : Parcelable

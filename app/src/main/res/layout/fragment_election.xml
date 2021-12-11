@@ -19,18 +19,18 @@
             android:id="@+id/loading_progress_bar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="@dimen/space_x0"
-            android:indeterminate="true"
             android:layout_height="wrap_content"
+            android:indeterminate="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add Upcoming Election Recycler and Header -->
         <TextView
             android:id="@+id/upcoming_elections_title"
             android:layout_width="@dimen/space_x0"
             android:layout_height="wrap_content"
             android:text="@string/upcoming_elections"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,12 +51,12 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
-        <!-- TODO: Add Saved Election Recycler and Header -->
         <TextView
             android:id="@+id/saved_elections_title"
             android:layout_width="@dimen/space_x0"
             android:layout_height="wrap_content"
             android:text="@string/saved_elections"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline1" />

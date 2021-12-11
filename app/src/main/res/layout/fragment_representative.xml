@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:motion="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- TODO: Add data binding node OK -->
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.ui.representative.viewmodel.RepresentativeViewModel" />
     </data>
 
-    <!-- TODO: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +40,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TODO: Add data binding value -->
             <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/address_line_1"
@@ -60,7 +53,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_title" />
 
-            <!-- TODO: Add data binding value -->
             <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/address_line_2"
@@ -74,7 +66,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
-            <!-- TODO: Add data binding value -->
             <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/city"
@@ -89,8 +80,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
-            <!-- TODO: Add default values from provided resources  -->
-            <!-- TODO: Add data binding value -->
             <!-- TODO: Add visual styling and content -->
             <Spinner
                 android:id="@+id/state"
@@ -104,7 +93,6 @@
                 app:layout_constraintStart_toEndOf="@id/city"
                 app:layout_constraintTop_toTopOf="@id/city" />
 
-            <!-- TODO: Add data binding value -->
             <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/zip"
@@ -156,7 +144,6 @@
                 android:text="@string/my_representatives"
                 android:textSize="28sp" />
 
-            <!-- TODO: Add Representatives RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/representative_recycler"
                 android:layout_width="match_parent"

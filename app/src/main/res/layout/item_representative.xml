@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:profileImage="@{representative.official.photoUrl}"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+            app:shapeAppearanceOverlay="@style/RoundedImageViewRounded" />
 
         <TextView
             android:id="@+id/title"

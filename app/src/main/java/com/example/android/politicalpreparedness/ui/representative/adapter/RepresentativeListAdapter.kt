@@ -37,8 +37,6 @@ class RepresentativeViewHolder private constructor(
         binding.representative = item
         binding.representativePhoto.setImageResource(R.drawable.ic_profile)
 
-        //TODO: Show social links ** Hint: Use provided helper methods - OK
-        //TODO: Show www link ** Hint: Use provided helper methods - OK
         showSocialLinks(item.official?.channels ?: emptyList())
         showWWWLinks(item.official?.urls ?: emptyList())
 
@@ -48,8 +46,6 @@ class RepresentativeViewHolder private constructor(
 
         binding.executePendingBindings()
     }
-
-    //TODO: Add companion object to inflate ViewHolder (from) - OK
 
     private fun showSocialLinks(channels: List<ChannelEntity>) {
         val facebookUrl = getFacebookUrl(channels)
@@ -100,7 +96,6 @@ class RepresentativeViewHolder private constructor(
 
 }
 
-//TODO: Create RepresentativeDiffCallback
 object RepresentativeDiffCallback : DiffUtil.ItemCallback<RepresentativeEntity>() {
     override fun areItemsTheSame(
         oldItem: RepresentativeEntity,
@@ -117,5 +112,4 @@ object RepresentativeDiffCallback : DiffUtil.ItemCallback<RepresentativeEntity>(
     }
 }
 
-//TODO: Create RepresentativeListener - OK
 typealias RepresentativeListener = (election: RepresentativeEntity) -> Unit

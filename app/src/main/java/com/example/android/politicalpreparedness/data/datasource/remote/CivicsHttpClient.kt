@@ -22,7 +22,6 @@ class CivicsHttpClient : OkHttpClient() {
                 .build()
         }
 
-        //TODO: Place your API Key inside local.properties - OK
         fun getClient(chuckerInterceptor: ChuckerInterceptor): OkHttpClient {
             return Builder()
                 .addInterceptor { chain ->
