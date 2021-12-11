@@ -1,6 +1,5 @@
 package com.example.android.politicalpreparedness.ui.representative.viewmodel
 
-import android.app.Application
 import android.content.Context
 import androidx.databinding.ObservableField
 import com.example.android.politicalpreparedness.common.base.BaseViewModel
@@ -12,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class RepresentativesState {
@@ -37,8 +37,8 @@ class RepresentativeViewModel @Inject constructor(
     val addressFilter = ObservableField<AddressEntity>()
 
     //TODO: Create function to fetch representatives from API from a provided address
-    suspend fun fetchRepresentatives() {
-        val address = getAddressFromFields() ?: return
+    fun fetchRepresentatives() = launch {
+        val address = getAddressFromFields() ?: return@launch
         _representativesState.value = RepresentativesState.Loading
         val param = GetListRepresentativesByAddressUseCase.Param(address)
         val newState = when (val result = getListRepresentativesByAddressUseCase.invoke(param)) {

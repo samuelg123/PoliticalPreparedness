@@ -38,27 +38,27 @@ interface CivicsApiService {
     // USING THIS TO GET ELECTION INFORMATION (DETAIL PAGE)
     @GET("voterinfo")
     suspend fun getVoterInfo(
-        address: String,// From ElectionResponse -> ElectionDTO -> Division ->  state + country
-        electionId: Long? = null, // From ElectionResponse -> ElectionDTO -> Division -> id
-        officialOnly: Boolean? = null
+        @Query("address") address: String,// From ElectionResponse -> ElectionDTO -> Division ->  state + country
+        @Query("electionId") electionId: Long? = null, // From ElectionResponse -> ElectionDTO -> Division -> id
+        @Query("officialOnly") officialOnly: Boolean? = null
     ): VoterInfoResponse
 
     //TODO: Add representatives API Call - OK
     // USING THIS FOR REPRESENTATIVE SEARCH PAGE
     @GET("representatives")
     suspend fun getRepresentativesByAddress(
-        address: String? = null,
-        includeOffices: Boolean? = null,
-        levels: String? = null,
-        roles: String? = null
+        @Query("address") address: String? = null,
+        @Query("includeOffices") includeOffices: Boolean? = null,
+        @Query("levels") levels: String? = null,
+        @Query("roles") roles: String? = null
     ): RepresentativeResponse
 
     @GET("representatives/{ocdId}")
     suspend fun getRepresentativeInfoByDivision(
         @Path("ocdId") ocdId: String,
-        levels: String? = null,
-        recursive: Boolean? = null,
-        roles: String? = null
+        @Query("levels") levels: String? = null,
+        @Query("recursive") recursive: Boolean? = null,
+        @Query("roles") roles: String? = null
     ): RepresentativeResponse
 }
 
@@ -67,7 +67,6 @@ object CivicsApi {
     fun create(chuckerInterceptor: ChuckerInterceptor): CivicsApiService {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-//    .addCallAdapterFactory(CoroutineCallAdapterFactory()) // TODO: CHECK AGAINNNNNN----
             .client(CivicsHttpClient.getClient(chuckerInterceptor))
             .baseUrl(BASE_URL)
             .build()

@@ -19,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.politicalpreparedness.common.base.BaseFragment
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.domain.entity.AddressEntity
@@ -90,6 +91,7 @@ class RepresentativeFragment : BaseFragment() {
             /* no-op */
         }
         binding.representativeRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             setAdapter(adapter)
         }
         binding.lifecycleOwner = viewLifecycleOwner
@@ -112,11 +114,11 @@ class RepresentativeFragment : BaseFragment() {
 
         //TODO: Establish button listeners for field and location search - OK
         binding.buttonSearch.setOnClickListener {
-            lifecycleScope.launchWhenStarted {
-                viewModel.fetchRepresentatives()
-            }
+            hideKeyboard()
+            viewModel.fetchRepresentatives()
         }
         binding.buttonLocation.setOnClickListener {
+            hideKeyboard()
             lifecycleScope.launchWhenStarted {
                 val address = getLocation() ?: return@launchWhenStarted
                 viewModel.setAddressFromGeoLocation(address)

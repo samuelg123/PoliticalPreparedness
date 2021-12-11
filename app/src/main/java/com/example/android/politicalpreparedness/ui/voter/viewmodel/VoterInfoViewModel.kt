@@ -1,16 +1,16 @@
 package com.example.android.politicalpreparedness.ui.voter.viewmodel
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.common.base.BaseViewModel
 import com.example.android.politicalpreparedness.common.base.entity.ResultWrapper
 import com.example.android.politicalpreparedness.domain.entity.VoterInfoEntity
-import com.example.android.politicalpreparedness.domain.interactor.*
-import com.example.android.politicalpreparedness.ui.election.viewmodel.SavedElectionState
+import com.example.android.politicalpreparedness.domain.interactor.GetSavedElectionByIdUseCase
+import com.example.android.politicalpreparedness.domain.interactor.GetVoterInfoUseCase
+import com.example.android.politicalpreparedness.domain.interactor.RemoveElectionUseCase
+import com.example.android.politicalpreparedness.domain.interactor.SaveElectionUseCase
 import com.example.android.politicalpreparedness.ui.voter.VoterInfoFragmentArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -49,6 +49,7 @@ class VoterInfoViewModel @Inject constructor(
     //TODO: Add live data to hold voter info - OK
     private val _voterInfoState = MutableStateFlow<VoterInfoState>(VoterInfoState.Loading)
     val voterInfoState: StateFlow<VoterInfoState> get() = _voterInfoState
+    lateinit var voterInfo: StateFlow<VoterInfoEntity?>
 
     //TODO: Add live data to hold voter info - OK
     private lateinit var followElectionState: StateFlow<FollowElectionState>
@@ -58,9 +59,9 @@ class VoterInfoViewModel @Inject constructor(
     val election = args.argElection
 
     init {
+        loadFollowElectionStatus()
         launch {
             loadVoterInfo()
-            loadFollowElectionStatus()
         }
     }
 
@@ -73,9 +74,17 @@ class VoterInfoViewModel @Inject constructor(
             is ResultWrapper.Success -> VoterInfoState.Success(result.data)
         }
         _voterInfoState.compareAndSet(VoterInfoState.Loading, newState)
+
+        voterInfo = _voterInfoState.map {
+            when(it){
+                is VoterInfoState.Error -> null
+                VoterInfoState.Loading -> null
+                is VoterInfoState.Success -> it.value
+            }
+        }.stateIn(viewModelScope)
     }
 
-    private suspend fun loadFollowElectionStatus() {
+    private fun loadFollowElectionStatus() {
         followElectionState = getElectionByIdUseCase.invoke(election.id).map {
             when (it) {
                 is ResultWrapper.Success ->
@@ -88,7 +97,7 @@ class VoterInfoViewModel @Inject constructor(
         followButtonStr = followElectionState.map {
             if (it is FollowElectionState.Followed) context?.getString(R.string.unfollow_election) ?: ""
             else context?.getString(R.string.follow_election) ?: ""
-        }.stateIn(viewModelScope)
+        }.stateIn(viewModelScope, SharingStarted.Lazily, "")
     }
 
     //TODO: Add var and methods to support loading URLs
