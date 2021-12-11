@@ -14,4 +14,36 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="TitleTextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SubtitleTextStyle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="PrimaryButtonStyle">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MediumTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/gray50</item>
+    </style>
+
+    <style name="CustomEditTextStyle">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomSpinnerStyle">
+        <item name="android:popupBackground">@color/colorAccent</item>
+    </style>
 </resources>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.ui.representative.viewmodel.RepresentativeViewModel" />
@@ -31,18 +33,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TODO: Add visual styling and content -->
             <TextView
                 android:id="@+id/search_title"
+                style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/representative_search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/address_line_1"
+                style="@style/CustomEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/address_line_1"
@@ -53,9 +55,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_title" />
 
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/address_line_2"
+                style="@style/CustomEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:hint="@string/address_line_2"
@@ -66,9 +68,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/city"
+                style="@style/CustomEditTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/city"
@@ -80,7 +82,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
-            <!-- TODO: Add visual styling and content -->
             <Spinner
                 android:id="@+id/state"
                 stateValue="@{viewModel.addressFilter.state}"
@@ -91,11 +92,12 @@
                 app:layout_constraintBottom_toBottomOf="@id/city"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/city"
-                app:layout_constraintTop_toTopOf="@id/city" />
+                app:layout_constraintTop_toTopOf="@id/city"
+                style="@style/CustomSpinnerStyle" />
 
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/zip"
+                style="@style/CustomEditTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/zip"
@@ -108,25 +110,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/city" />
 
-            <!-- TODO: Add visual styling and label -->
             <Button
                 android:id="@+id/button_search"
+                style="@style/PrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/find_my_representatives"
                 app:layout_constraintTop_toBottomOf="@id/zip" />
 
-            <!-- TODO: Add visual styling and content -->
             <Button
                 android:id="@+id/button_location"
+                style="@style/PrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x1"
                 android:text="@string/use_my_location"
                 app:layout_constraintTop_toBottomOf="@id/button_search" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- TODO: Add visual styling and content -->
         <LinearLayout
             android:id="@+id/list_layout"
             android:layout_width="@dimen/space_x0"
@@ -139,10 +141,10 @@
 
             <TextView
                 android:id="@+id/representative_title"
+                style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_representatives"
-                android:textSize="28sp" />
+                android:text="@string/my_representatives" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/representative_recycler"
