@@ -1,3 +1,6 @@
+## Instruction
+Please put `civicApiKey=<Your API Key>` into local.properties file
+
 ## Political Preparedness
 
 PolitcalPreparedness is an example application built to demonstrate core Android Development skills as presented in the Udacity Android Developers Kotlin curriculum. 
