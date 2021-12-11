@@ -1,18 +1,20 @@
 buildscript {
     ext {
-        version_android_gradle_plugin = '7.0.2'
-        version_core = '1.6.0'
-        version_constraint_layout = "2.1.1"
+        version_android_gradle_plugin = '7.0.3'
+        version_desugar_jdk = '1.1.5'
+        version_core = '1.7.0'
+        version_constraint_layout = "2.1.2"
         version_glide = "4.12.0"
         version_kotlin = '1.5.31'
         version_kotlin_coroutines = "1.5.2"
-        version_lifecycle_extensions = '2.4.0-rc01'
+        version_lifecycle_extensions = '2.4.0'
         version_moshi = "1.12.0"
-        version_navigation = "2.3.5"
+        version_navigation = "2.4.0-beta02"
         version_retrofit = "2.9.0"
         version_recyclerview = "1.2.1"
         version_play_services_location = "18.0.0"
         version_room = "2.3.0"
+        version_hilt = "2.38.1"
     }
 
     repositories {
@@ -22,6 +24,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$version_android_gradle_plugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$version_hilt"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
     }
 }
